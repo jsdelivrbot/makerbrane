@@ -7,6 +7,8 @@
     <script src="./libs/aframe.min.js"></script>
     <script src="./libs/jquery-3.2.1.min.js"></script>
     <script src="./components/gridHelper.js"></script>
+    <script src="./primitives/refPoint.js"></script>
+    <script src="./components/ref-container.js"></script>
   </head>
   <body>
       <button id="gridVisibilityButton">
@@ -14,14 +16,13 @@
       </button>
       <a-scene gridhelper>
           <a-assets>
-              <a-asset-item id="skull" src="./models/skull.glb"></a-asset-item>
+              <a-asset-item id="skull" src="./models/skull/skull.glb"></a-asset-item>
           </a-assets>
-          <a-gltf-model src="#skull" position="1 1 -3"></a-gltf-model>
-
-          <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+          <a-gltf-model ref-container src="#skull" position="1 1 -3"></a-gltf-model>
 
           <a-sky color="#ECECEC"></a-sky>
       </a-scene>
   </body>
     <script src="./ui.js"></script>
 </html>
+
