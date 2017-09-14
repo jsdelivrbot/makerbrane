@@ -6,26 +6,39 @@ const getObjectJson = function(model)
     if (!asset)
         alert("Error: "+assetId+" Id not found!");
 
-    console.log(asset);
     var assetPath = asset.getAttribute('src');
     var jsonPath = assetPath.substring(0, assetPath.lastIndexOf(".")+1)+"json";
     return jsonPath;
 }
+
 AFRAME.registerComponent('ref-container', {
-    init: function () {
+    schema: 
+    {
+        focused: {default: false}
+    },
+    init: function ()
+    {
+        var data = this.data;
         var el = this.el;
 
-        (function() {
-            var jsonPath = getObjectJson(el);
-            $.getJSON(jsonPath, {
-                format: "json"
-            })
-                .done(function(points) {
-                    $.each(points, function(point, data) {
-                        createRefPoint(el, data);
-                    });
-                });
-        })();
+        el.addEventListener('triggerFocus', function (event)
+            {
+                data.focused = !data.focused;
+            }
+        );
+        (function()
+            {
+                var jsonPath = getObjectJson(el);
+                $.getJSON(jsonPath, {
+                    format: "json"
+                })
+                    .done(function(points)
+                        {
+                            $.each(points, function(point, data) {
+                                createRefPoint(el, data);
+                            });
+                        });
+            })();
 
     }
 });

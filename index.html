@@ -4,25 +4,66 @@
     <meta charset="utf-8">
     <title>Hello, World! - A-Frame</title>
     <meta name="description" content="Hello, World! - A-Frame">
+
+    <link type="text/css" rel="stylesheet" href="./libs/materialize/css/materialize.css"></link>
     <script src="./libs/aframe.min.js"></script>
     <script src="./libs/jquery-3.2.1.min.js"></script>
     <script src="./components/gridHelper.js"></script>
-    <script src="./primitives/refPoint.js"></script>
     <script src="./components/ref-container.js"></script>
+    <script src="./components/dynamic.js"></script>
+    <script src="./primitives/refPoint.js"></script>
+
+
   </head>
+  <script>
+  </script>
   <body>
-      <button id="gridVisibilityButton">
-          Grid
-      </button>
+      <div class="card-panel pink" style="margin: 0;">
+          <a class="waves-effect pink lighten-1 btn"><i id="gridVisibilityButton"class="material-icons
+          left">grid_off</i>grid</a>
+          <!-- Dropdown Trigger -->
+          <a class='waves-effect pink lighten-1 dropdown-button btn' href='#'
+                                                        data-activates='dropdown1'>Translate</a>
+          <a class='waves-effect pink lighten-1 dropdown-button btn' href='#'
+                                                        data-activates='dropdown2'>Rotate</a>
+
+          <ul id='dropdown1' class='dropdown-content'>
+              <li><a id="translateX" href="#!">X</a></li>
+              <li><a id="translateY" href="#!">Y</a></li>
+              <li><a id="translateZ" href="#!">Z</a></li>
+          </ul>
+          <ul id='dropdown2' class='dropdown-content'>
+              <li><a id="rotateX" href="#!">X</a></li>
+              <li><a id="rotateY" href="#!">Y</a></li>
+              <li><a id="rotateZ" href="#!">Z</a></li>
+          </ul>
+      </div>
+      <!-- A-FRAME -->
       <a-scene gridhelper>
           <a-assets>
               <a-asset-item id="skull" src="./models/skull/skull.glb"></a-asset-item>
           </a-assets>
-          <a-gltf-model ref-container src="#skull" position="1 1 -3"></a-gltf-model>
+
+          <a-box id="sample" dynamic position="-1 1 -3" color="blue"></a-box>
+          <a-gltf-model dynamic ref-container src="#skull" position="1 1 -3"></a-gltf-model>
 
           <a-sky color="#ECECEC"></a-sky>
+
+          <a-camera>
+              <a-cursor id="cursor">
+                  <a-animation begin="click" 
+                               fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150">
+                  </a-animation>
+                  <a-animation begin="cursor-fusing" easing="ease-in" attribute="scale"
+                                                                      from="1 1 1" to="0.1 0.1 0.1" dur="1500">
+                  </a-animation>
+              </a-cursor>
+          </a-camera>
       </a-scene>
+      <!-- UI -->
   </body>
-    <script src="./ui.js"></script>
+  <script src="./libs/materialize/js/materialize.min.js"></script>
+  <script src="./js/ui.js"></script>
+  <script src="./js/sample.js"></script>
 </html>
 
