@@ -1,15 +1,35 @@
 var sceneEl = document.querySelector('a-scene');
 
+utils = function() {
+    // Add 2 vec3 and return the result
+    var add = function (currPosition, vec3) {
+        var newPostion = new THREE.Vector3(
+            currPosition.x + vec3.x,
+            currPosition.y + vec3.y,
+            currPosition.z + vec3.z
+        );
+        return newPostion;
+    };
+    var getDistance = function (firstVec3, secondVec3) {
+        var a = firstVec3.x - secondVec3.x;
+        var b = firstVec3.y - secondVec3.y;
+        var c = firstVec3.z - secondVec3.z;
+
+        // GET DISTANCE
+        return Math.sqrt( a*a + b*b + c*c);
+    };
+    return {add:add, getDistance:getDistance}
+}();
+
 // Grid Visibility trigger
 $(document).ready(function() {
-    $('i#gridVisibilityButton').click(function(event) {
+    $('#gridVisibilityButton').change(function(event) {
         if (sceneEl.hasAttribute('gridHelper'))
             sceneEl.removeAttribute('gridHelper');
         else
             sceneEl.setAttribute('gridHelper','');
     });
 });
-
 
 //// FOCUSING ELEMENTS
 
@@ -27,35 +47,3 @@ keys = function() {
 
 window.addEventListener('keydown', keys.add, false);
 window.addEventListener('keyup', keys.remove, false);
-
-var focused = [];
-var cusror = document.querySelector('#cursor');
-cursor.addEventListener('mousedown', function (event) {
-    // CTRL key
-    if (!keysPressed[17]) {
-        focused.forEach(function(item) {
-            item.setAttribute('material', 'opacity: 0.4');
-        });
-        focused = [];
-    }
-    var el = event.detail.intersectedEl;
-    if (!el)
-        return 0;
-
-    // World position
-    //console.log(el.object3D.getWorldPosition());
-    el.setAttribute('material', 'opacity: 1');
-    focused.push(el);
-
-    // IF 2 IS FOCUSED GET DISTANCE
-    if (focused.length == 2) {
-        var positionA = focused[0].getAttribute('position');
-        var positionB = focused[1].getAttribute('position');
-
-        var a = positionA.x - positionB.x;
-        var b = positionA.y - positionB.y;
-        var c = positionA.z - positionB.z;
-        // GET DISTANCE
-        //console.log(Math.sqrt( a*a + b*b + c*c));
-    }
-});

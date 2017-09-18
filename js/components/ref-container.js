@@ -37,9 +37,10 @@ AFRAME.registerComponent('ref-container', {
                             $.each(points, function(point, data) {
                                 createRefPoint(el, data);
                             });
-                        });
-            })();
-
+                        }
+                    );
+            }
+        )();
     }
 });
 
@@ -47,6 +48,7 @@ const createRefPoint = function (elParent, data)
 {
     var refPoint = document.createElement('a-ref-point');
     refPoint.setAttribute('position', data.position);
+    refPoint.setAttribute('focusmodel', 'moveable: false');
     elParent.appendChild(refPoint);
 }
 
