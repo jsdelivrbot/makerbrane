@@ -14,17 +14,8 @@ AFRAME.registerSystem('focus-system', {
             !el.hasAttribute('focusmodel')
         )
             return;
-        // World position
-        //console.log(el.object3D.getWorldPosition());
         el.setAttribute('material', 'opacity: 1');
         this.models.push(el);
-        return;
-        // Distance between 2 models
-        if (this.models.length == 2)
-            console.log(utils.getDistance(
-                this.models[0].getAttribute('position'), 
-                this.models[1].getAttribute('position')
-            ));
     },
     unfocus: function (el) {
         el.setAttribute('material', 'opacity: 0.5');
@@ -43,7 +34,6 @@ AFRAME.registerSystem('focus-system', {
     // Translate all subscribers
     translate: function(vec3) {
         this.models.forEach(function(model) {
-            console.log(model.components.focusmodel.data.moveable);
             if (model.components.focusmodel.data.moveable)
                 model.emit('translateFocused', {vec3 : vec3});
         });

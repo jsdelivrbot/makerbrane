@@ -20,3 +20,20 @@ $('#rotateY').click(function() {
 $('#rotateZ').click(function() {
     sys.rotate(new THREE.Vector3(0, 0, rotationUnits));
 });
+$('#global').click(function() {
+    var models = sys.models;
+    if (models.length === 0)
+        console.warn("You need to focus at least one model");
+    else 
+        console.log(sys.models[0].object3D.getWorldPosition());
+});
+$('#distance').click(function() {
+    var models = sys.models;
+    if (models.length < 2 )
+        console.warn("You need to focus at least two models");
+    else 
+        console.log(utils.getDistance(
+            models[0].getAttribute('position'), 
+            models[1].getAttribute('position')
+        ));
+});

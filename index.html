@@ -1,72 +1,82 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Hello, World! - A-Frame</title>
-    <meta name="description" content="Hello, World! - A-Frame">
+    <head>
+        <title>MakerBrane</title>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
 
-    <link type="text/css" rel="stylesheet" href="./libs/materialize/css/materialize.css"></link>
-  <script src="./libs/aframe.min.js"></script>
-    <script src="./libs/jquery-3.2.1.min.js"></script>
-    <script src="./libs/aframe-extras.min.js"></script>
-    <script src="./js/components/gridHelper.js"></script>
-    <script src="./js/components/ref-container.js"></script>
-    <script src="./js/components/focus-cursor.js"></script>
-    <script src="./js/components/focusmodel.js"></script>
-    <!--    <script src="./js/components/dynamic.js"></script> -->
-    <script src="./js/primitives/refPoint.js"></script>
-    <script src="./js/systems/focus-system.js"></script>
+        <!-- STYLE SHEETS -->
+        <link type="text/css" rel="stylesheet" href="./libs/materialize/css/materialize.css"></link>
+        <!-- 3D LIBS -->
+        <script src="./libs/aframe.min.js"></script>
+        <script src="./libs/jquery-3.2.1.min.js"></script>
+        <script src="./libs/aframe-extras.min.js"></script>
+        <!-- COMPONENETS -->
+        <script src="./js/components/gridHelper.js"></script>
+        <script src="./js/components/ref-container.js"></script>
+        <script src="./js/components/focus-cursor.js"></script>
+        <script src="./js/components/focus-model.js"></script>
+        <!-- PRIMITIVES -->
+        <script src="./js/primitives/refPoint.js"></script>
+        <!-- SYSTEMS -->
+        <script src="./js/systems/focus-system.js"></script>
 
-  </head>
-  <script>
-  </script>
-  <body>   
-      <!-- TOP MENUE -->
-      <div class="card-panel pink" style="margin: 0;">
-          <!-- GRID BUTTON -->
-          <div>
-              <input type="checkbox" id="gridVisibilityButton" name="subscribe"
-                                                               value="newsletter" checked>
-              <label for="gridVisibilityButton">Grid</label>
-          </div>
-          <!-- DROPDOWN MENUE -->
-          <a class='waves-effect pink lighten-1 dropdown-button btn' href='#'
-                     data-activates='dropdown1'>Translate</a>
-          <a class='waves-effect pink lighten-1 dropdown-button btn' href='#'
-                     data-activates='dropdown2'>Rotate</a>
+    </head>
+    <script>
+    </script>
+    <body>   
+        <!-- TOP MENUE -->
+        <div class="card-panel pink" style="margin: 0;">
+            <!-- GRID BUTTON -->
+            <div>
+                <input type="checkbox" id="gridVisibilityButton" name="subscribe"
+                                                                 value="newsletter" checked>
+                <label for="gridVisibilityButton">Grid</label>
+            </div>
+            <!-- DROPDOWN MENUE FOR SAMPLING TRANSLATION AND ROTATION-->
+            <a class='waves-effect pink lighten-1 dropdown-button btn' href='#'
+                       data-activates='dropdown1'>Translate</a>
+            <a class='waves-effect pink lighten-1 dropdown-button btn' href='#'
+                       data-activates='dropdown2'>Rotate</a>
 
-          <ul id='dropdown1' class='dropdown-content'>
-              <li><a id="translateX" href="#!">X</a></li>
-              <li><a id="translateY" href="#!">Y</a></li>
-              <li><a id="translateZ" href="#!">Z</a></li>
-          </ul>
-          <ul id='dropdown2' class='dropdown-content'>
-              <li><a id="rotateX" href="#!">X</a></li>
-              <li><a id="rotateY" href="#!">Y</a></li>
-              <li><a id="rotateZ" href="#!">Z</a></li>
-          </ul>
-      </div>
-      <!-- A-FRAME -->
-      <a-scene gridhelper>
-          <a-assets>
-              <a-asset-item id="skull" src="./models/skull/skull.glb"></a-asset-item>
-          </a-assets>
+            <ul id='dropdown1' class='dropdown-content'>
+                <li><a id="translateX" href="#!">X</a></li>
+                <li><a id="translateY" href="#!">Y</a></li>
+                <li><a id="translateZ" href="#!">Z</a></li>
+            </ul>
+            <ul id='dropdown2' class='dropdown-content'>
+                <li><a id="rotateX" href="#!">X</a></li>
+                <li><a id="rotateY" href="#!">Y</a></li>
+                <li><a id="rotateZ" href="#!">Z</a></li>
+            </ul>
+            <!-- GET DISTANCE/GLOBAL BUTTONS -->
+            <a id="global" class='waves-effect pink lighten-1 dropdown-button btn' href='#'>GLOBAL</a>
+            <a id="distance" class='waves-effect pink lighten-1 dropdown-button btn' href='#'>DISTANCE</a>
+        </div>
+        <!-- A-FRAME -->
+        <a-scene gridhelper>
+            <a-assets>
+                <a-asset-item id="skull" src="./models/skull/skull.glb"></a-asset-item>
+            </a-assets>
 
-          <a-gltf-model focusmodel  ref-container src="#skull" position="1 1 -3"></a-gltf-model>
+            <a-gltf-model focusmodel  ref-container src="#skull" position="1 1 -3"></a-gltf-model>
 
-        <a-box focusmodel="moveable:true" material="opacity: 0.5" position="1 3 -3" rotation="1 1 1" color="green"></a-box>
-        <a-box focusmodel="moveable:true" material="opacity: 0.5" position="2.5 3 -3" rotation="1 1 1" color="green"></a-box>
-        <a-box focusmodel="moveable:false" material="opacity: 0.5" position="2 1.5 -3" rotation="1 1 1" color="red"></a-box>
+            <a-box focusmodel material="opacity:0.5" position="1 3 -3" color="green">
+            </a-box>
+            <a-box focusmodel material="opacity:0.5" position="2.5 3 -3" color="green">
+            </a-box>
+            <a-box focusmodel material="opacity:0.5" position="2 1.5 -3" color="red">
+            </a-box>
 
-        <a-entity position="1 1 1"camera custom-controls universal-controls>
-              <a-cursor focus-cursor id="cursor">
-              </a-cursor>
-          </a-camera>
-      </a-scene>
-      <!-- UI -->
-  </body>
-  <script src="./libs/materialize/js/materialize.min.js"></script>
-  <script src="./js/ui.js"></script>
-  <script src="./js/sample.js"></script>
+            <a-entity position="1 1 1"camera custom-controls universal-controls>
+                <a-cursor focus-cursor id="cursor">
+                </a-cursor>
+            </a-entity>
+        </a-scene>
+        <!-- UI -->
+    </body>
+    <script src="./libs/materialize/js/materialize.min.js"></script>
+    <script src="./js/ui.js"></script>
+    <script src="./js/sample.js"></script>
 </html>
 

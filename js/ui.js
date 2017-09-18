@@ -42,8 +42,9 @@ keys = function() {
     const remove = function(e) {
         delete keysPressed[e.keyCode];
     };
-    return {add:add, remove:remove}
+    return {add:add, remove:remove, keysPressed:keysPressed}
 }();
 
 window.addEventListener('keydown', keys.add, false);
 window.addEventListener('keyup', keys.remove, false);
+

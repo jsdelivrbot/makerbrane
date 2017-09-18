@@ -1,146 +1,48 @@
 <head>
-  <title>Example</title>
+  <title>My A-Frame Scene</title>
   <script src="./libs/aframe.min.js"></script>
-  <script src="./libs/aframe-extras.min.js"></script>
-    <script>
-/**
- * The subject that the models are going to subscribe to
- * Focused objects subscribe to it.
- * It can rotate or translate every subscribed elem
- */
-AFRAME.registerSystem('focus-system', {
-    init: function () {
-        this.models = [];
-    },
-    focus: function (el) {
-        if (this.isFocused(el))
-            return;
-        el.setAttribute('opacity', '1');
-        this.models.push(el);
-    },
-    unfocus: function (el) {
-        el.setAttribute('opacity', '0.5');
-        var index = this.models.indexOf(el);
-        this.models.splice(index, 1);
-    },
-    unfocusAll: function () {
-        var length = this.models.length;
-        for(let i = 0; i < length; ++i) {
-            this.unfocus(this.models[0]);
-        }
-    },
-    translate: function(vec3) {
-        this.models.forEach(function(model) {
-            model.emit('translateFocused', {vec3 : vec3});
-        });
-    },
-    isFocused: function(el) {
-        return (this.models.indexOf(el) !== -1);
-    },
-    // Translate all subscribers
-    translate: function(vec3) {
-            console.log('here');
-        this.models.forEach(function(model) {
-            console.log('here');
-            model.emit('translateFocused', {vec3 : vec3});
-        });
-    },
-    // Rotate all subscribers
-    rotate: function(vec3) {
-        this.models.forEach(function(model) {
-            model.emit('rotateFocused', {vec3 : vec3});
-        });
-    }
-});
 
-// Trackes the keys that's being pressed
-keys = function() {
-    keysPressed = [];
-    const add= function(e) {
-        keysPressed[e.keyCode] = true;
-    };
-    const remove = function(e) {
-        delete keysPressed[e.keyCode];
-    };
-    return {add:add, remove:remove}
-}();
-
-window.addEventListener('keydown', keys.add, false);
-window.addEventListener('keyup', keys.remove, false);
-
-// Sends the entities that's being clicked to the system
-// to get subscribed
-AFRAME.registerComponent('focus-cursor', {
-    init: function () {
-        this.el.addEventListener('mousedown', function (event) {
-            var sys = document.querySelector('a-scene').systems['focus-system'];
-            var el = event.detail.intersectedEl;
-            if (!keysPressed[17])
-                sys.unfocusAll();
-            if (!el)
-                return;
-            sys.focus(el);
-        });
-    },
-    remove: function () {
-    }
-});
-
-FocusEnum = {
-    rotateEvent: 'rotateFocused',
-    translateEvent: 'rotateFocused',
-    rotateEvent: 'rotateFocused',
-
-}
-utils = function() {
-    // Add 2 vec3 and return the result
-    var add = function (currPosition, vec3) {
-        var newPostion = new THREE.Vector3(
-            currPosition.x + vec3.x,
-            currPosition.y + vec3.y,
-            currPosition.z + vec3.z
-        );
-        return newPostion;
-    };
-    return {add:add}
-}();
-AFRAME.registerComponent('focusmodel', {
-    init: function () {
-        var el = this.el;
-
-        el.addEventListener('rotateFocused', function(event) {
-            var newRotation = utils.add(el.getAttribute('rotation'),
-                event.detail.vec3)
-            el.setAttribute('rotation', newRotation);
-        });
-        el.addEventListener('translateFocused', function(event) {
-            var newTransform = utils.add(el.getAttribute('position'),
-                event.detail.vec3)
-            el.setAttribute('position', newTransform);
-        });
-    },
-    // remove event Listeners
-    remove: function() {
-        var el = this.el;
-        
-        el.removeEventListener('rotateFocused', this.eventHandlerFn);
-        el.removeEventListener('translateFocused', this.eventHandlerFn);
-    },
-});
-
-    </script>
+    <script src="https://unpkg.com/aframe-template-component@3.x.x/dist/aframe-template-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-layout-component@3.x.x/dist/aframe-layout-component.min.js"></script>
+    <script
+src="https://unpkg.com/aframe-layout-component@4.1.1/dist/aframe-layout-component.min.js"></script>
 </head>
+
 <body>
     <a-scene>
-        <a-box focusmodel material="opacity: 0.5" position="1 1 -3" rotation="1 1 1" color="green"></a-box>
-        <a-box focusmodel material="opacity: 0.5" position="1 2 -3" rotation="1 1 1" color="green"></a-box>
-        <a-box focusmodel material="opacity: 0.5"position="1 3 -3" rotation="1 1 1" color="green"></a-box>
-        <a-entity camera custom-controls universal-controls>
-            <a-cursor focus-cursor id="cursor">
+        <a-assets>
+              <script id="plane" type="text/html">
+    <a-entity class="link"
+      geometry="primitive: plane; height: 1; width: 1"
+      material="shader: flat; src: #cubes-thumb"
+      sound="on: click; src: #click-sound"></a-entity>
+  </script>
+            <!-- Images. -->
+            <img id="city" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/city.jpg">
+            <img id="city-thumb" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-city.jpg">
+            <img id="cubes" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/cubes.jpg">
+            <img id="cubes-thumb" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg">
+            <img id="sechelt" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg">
+            <img id="sechelt-thumb" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-sechelt.jpg">
+        </a-assets>
+        <!-- 360-degree image. -->
+        <a-sky id="image-360" radius="10" src="#city">
+        </a-sky>
+        <!-- Link we will build. -->
+        <a-entity id="links" layout="layout: line; margin: 2" position="-3 -1
+        -4">
+            <a-entity template="src: #plane" data-thumb="#city-thumb"></a-entity>
+            <a-entity template="src: #plane" data-thumb="#cubes-thumb"></a-entity>
+        </a-entity>
+            <a-entity id="links" layout="layout:circle; radius:10" position="1 1 -5">
+            <a-box></a-box>
+            <a-box></a-box>
+            <a-box></a-box>
+        </a-entity>
+        <!-- Camera + Cursor. -->
+        <a-camera>
+            <a-cursor id="cursor">
             </a-cursor>
         </a-camera>
     </a-scene>
 </body>
-<script>
-
-</script>
