@@ -1,3 +1,4 @@
+// Component to draw the grid in the scene
 AFRAME.registerComponent('gridhelper', {
     schema: {
         size: { default: 5 },

@@ -1,8 +1,9 @@
+// Primitive for ref points
 AFRAME.registerPrimitive('a-ref-point', {
   defaultComponents: {
       geometry: {
           primitive: 'sphere',
-          radius: '0.1',
+          radius: '0.2',
       }, 
       material: {
           color: 'yellow',

@@ -1,3 +1,5 @@
+// Testing rotation, translation, getting global position and calculating distance
+// between 2 models
 var sys = document.querySelector('a-scene').systems['focus-system'];
 var translationUnits = 1;
 var rotationUnits = 30;

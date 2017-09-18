@@ -15,7 +15,7 @@
         <script src="./js/components/gridHelper.js"></script>
         <script src="./js/components/ref-container.js"></script>
         <script src="./js/components/focus-cursor.js"></script>
-        <script src="./js/components/focus-model.js"></script>
+        <script src="./js/components/focusmodel.js"></script>
         <!-- PRIMITIVES -->
         <script src="./js/primitives/refPoint.js"></script>
         <!-- SYSTEMS -->
@@ -63,12 +63,13 @@
 
             <a-box focusmodel material="opacity:0.5" position="1 3 -3" color="green">
             </a-box>
-            <a-box focusmodel material="opacity:0.5" position="2.5 3 -3" color="green">
+            <a-box focusmodel material="opacity:0.5" position="2.5 3 -3"
+                                                     color="yellow">
             </a-box>
             <a-box focusmodel material="opacity:0.5" position="2 1.5 -3" color="red">
             </a-box>
 
-            <a-entity position="1 1 1"camera custom-controls universal-controls>
+            <a-entity position="1 1 1" camera custom-controls universal-controls>
                 <a-cursor focus-cursor id="cursor">
                 </a-cursor>
             </a-entity>
@@ -76,7 +77,9 @@
         <!-- UI -->
     </body>
     <script src="./libs/materialize/js/materialize.min.js"></script>
-    <script src="./js/ui.js"></script>
+    <!-- HELPERS -->
+    <script src="./js/utils.js"></script>
+    <!-- FOR TRANSLATE/ROTATE/GLOBAL/DISTANCE -->
     <script src="./js/sample.js"></script>
 </html>
 

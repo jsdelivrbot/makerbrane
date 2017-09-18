@@ -1,3 +1,7 @@
+// Gets the path for the json file that contains the points of the model
+// ex: /models/modelX.obj
+// searchs for /models/modelX.json
+// if not found alerts the user
 const getObjectJson = function(model)
 {
     var assetId = model.getAttribute('src');
@@ -11,45 +15,33 @@ const getObjectJson = function(model)
     return jsonPath;
 }
 
+// Component used to for ref-containers where it will go and look
+// for a json file and assign some ref points according to it
 AFRAME.registerComponent('ref-container', {
-    schema: 
-    {
-        focused: {default: false}
-    },
     init: function ()
     {
-        var data = this.data;
         var el = this.el;
         var that = this;
 
-        el.addEventListener('triggerFocus', function (event)
+        (function()
             {
-                data.focused = !data.focused;
-            }
-        );
-        var jsonPath = getObjectJson(el);
-        var points = (function () {
-            var json = null;
-            $.ajax({
-                'async': false,
-                'global': false,
-                'url': jsonPath,
-                'dataType': "json",
-                'success': function (data) {
-                    json = data;
-                }
-            });
-            return json;
-        })(); 
-
-        $.each(points, function(point, data) {
-            that.createRefPoint(data);
-        });
+                var jsonPath = getObjectJson(el);
+                $.getJSON(jsonPath, {
+                    format: "json"
+                })
+                    .done(function(points)
+                        {
+                            $.each(points, function(point, data) {
+                                that.createRefPoint(data);
+                            });
+                        });
+            })();
     },
     createRefPoint: function(data) {
         var el = this.el;
         var refPoint = document.createElement('a-ref-point');
         refPoint.setAttribute('position', data.position);
+        // ref points can be focused but not moved
         refPoint.setAttribute('focusmodel', 'moveable: false');
         el.appendChild(refPoint);
     }
