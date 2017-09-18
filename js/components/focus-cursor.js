@@ -5,7 +5,6 @@ AFRAME.registerComponent('focus-cursor', {
         this.el.addEventListener('mousedown', function (event) {
             var sys = document.querySelector('a-scene').systems['focus-system'];
             var el = event.detail.intersectedEl;
-            console.log(el);
             // If CTRL is pressed you can focus more models
             if (!keys.keysPressed[17])
                 sys.unfocusAll();

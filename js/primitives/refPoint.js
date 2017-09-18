@@ -3,7 +3,7 @@ AFRAME.registerPrimitive('a-ref-point', {
   defaultComponents: {
       geometry: {
           primitive: 'sphere',
-          radius: '0.2',
+          radius: '0.1',
       }, 
       material: {
           color: 'yellow',

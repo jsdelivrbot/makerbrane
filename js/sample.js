@@ -33,9 +33,10 @@ $('#distance').click(function() {
     var models = sys.models;
     if (models.length < 2 )
         console.warn("You need to focus at least two models");
-    else 
+    else  {
         console.log(utils.getDistance(
-            models[0].getAttribute('position'), 
-            models[1].getAttribute('position')
+            models[0].object3D.getWorldPosition(), 
+            models[1].object3D.getWorldPosition()
         ));
+    }
 });
