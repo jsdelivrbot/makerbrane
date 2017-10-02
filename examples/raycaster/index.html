@@ -1,0 +1,61 @@
+<head>
+    <title>My A-Frame Scene</title>
+    <script src="../../src/libs/aframe.min.js"></script>
+    <script src="../../src/libs/super-hands.js"></script>
+    <script src="../../src/libs/jquery-3.2.1.min.js"></script>
+    <script src="../../src/libs/aframe-extras.min.js"></script>
+    <script src="../../src/libs/aframe-mouse-cursor-component.min.js"></script>
+    <script src="../../src/libs/aframe-physics-system.min.js"></script>
+    <!-- COMPONENETS -->
+    <script src="../../src/js/components/gridHelper.js"></script>
+    <script src="../../src/js/components/ref-container.js"></script>
+    <script src="../../src/js/components/focus-cursor.js"></script>
+    <script src="../../src/js/components/focusmodel.js"></script>
+    <!-- PRIMITIVES -->
+    <script src="../../src/js/primitives/refPoint.js"></script>
+    <!-- SYSTEMS -->
+    <script src="../../src/js/systems/focus-system.js"></script>
+</head>
+<script>
+</script>
+<body>
+    <a-scene physics gridhelper>
+        <a-assets>
+            <a-mixin id="cube" geometry="primitive: box; width: 0.33; height: 0.33; depth: 0.33"
+                               grabbable shadow>
+            </a-mixin>
+            <a-asset-item id="skull" src="../../users/user1/models/skull/skull.glb"></a-asset-item>
+        </a-assets>
+
+        <a-gltf-model grabbable class="grabbable" position="0 3 -3"
+            src="#skull">
+        </a-gltf-model>
+
+        <a-entity mixin="cube" position="0 2 -3" material></a-entity>
+
+        <a-entity mixin="cube" position="0 2 -3" material></a-entity>
+
+        <a-camera>
+            <a-cursor id="cursor"></a-cursor>
+
+            <!-- <a-entity id="cursor" cursor  geometry="primitive: ring; -->
+            <!-- radiusInner: 0.02; radiusOuter: 0.03" material="color: black; -->
+            <!-- shader: flat" raycaster="showLine:true"></a-entity> -->
+        </a-camera>
+
+    </a-scene>
+</body>
+<script>
+$(document).ready(function() {
+const cursor= document.querySelector("#cursor");
+});
+cursor.addEventListener("raycaster-intersection", function(e) {
+    cursor.components.raycaster.refreshObjects();
+    console.log(e.detail);
+});
+
+//cursor.addEventListener('raycaster-intersection', function(e) {
+//    console.log(e.detail.els);
+//});
+
+</script>

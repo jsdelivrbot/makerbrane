@@ -21,6 +21,12 @@
     "vr"
   ],
   "dependencies": {
-    "aframe-physics-system": "^2.0.0"
+    "aframe": "^0.7.0",
+    "aframe-layout-component": "^4.2.0",
+    "aframe-physics-system": "^2.0.0",
+    "aframe-react": "^4.3.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "super-hands": "^2.0.1"
   }
 }

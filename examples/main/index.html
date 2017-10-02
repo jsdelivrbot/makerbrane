@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <title>My A-Frame Scene</title>
+        <script src="../../src/libs/aframe.min.js"></script>
+        <script src="../../src/libs/super-hands.js"></script>
+        <script src="../../src/libs/jquery-3.2.1.min.js"></script>
+        <script src="../../src/libs/aframe-extras.min.js"></script>
+        <!-- <script src="../../src/libs/aframe-mouse-cursor-component.min.js"></script> -->
+        <!-- <script src="../../src/libs/aframe-physics-system.min.js"></script> -->
+        <!-- [> COMPONENETS <] -->
+        <!-- <script src="../../src/js/components/gridHelper.js"></script> -->
+        <!-- <script src="../../src/js/components/ref-container.js"></script> -->
+        <!-- <script src="../../src/js/components/focus-cursor.js"></script> -->
+        <!-- <script src="../../src/js/components/focusmodel.js"></script> -->
+        <!-- [> PRIMITIVES <] -->
+        <!-- <script src="../../src/js/primitives/refPoint.js"></script> -->
+        <!-- [> SYSTEMS <] -->
+        <!-- <script src="../../src/js/systems/focus-system.js"></script> -->
+    </head>
+    <script>
+    </script>
+    <body>
+        <a-scene physics gridhelper>
+            <a-assets>
+                <a-mixin id="cube" geometry="primitive: box; width: 0.33; height: 0.33; depth: 0.33"> </a-mixin>
+                <a-asset-item id="skull" src="../../users/user1/models/skull/skull.glb"></a-asset-item>
+            </a-assets>
+            <!-- A-framge primitives -->
+            <a-entity grabbable mixin="cube" position="0 2 -3" material="color: green"></a-entity>
+            <a-entity grabbable mixin="cube" position="0 2 -3" material="color: red"></a-entity>
+
+            <!-- Imported models -->
+            <a-gltf-model grabbable position="0 3 -3" src="#skull"> </a-gltf-model>
+            <a-entity id="model" grabbable collada-model="url(../../model.dae)"></a-entity>
+            <a-entity grabbable gltf-model-next="src: url(../../users/user1/models/Box.glb);"></a-entity>
+            <!-- camera/cursor -->
+            <a-entity progressive-controls>
+                <a-entity position="1 1 1" camera universal-controls>
+                    <a-cursor id="cursor"></a-cursor>
+                </a-entity>
+            </a-entity>
+        </a-scene>
+    </body>
+    <script>
+$(document).ready(function() {
+    // get the cursor and models that are grabbable
+    const cursor= document.querySelector("#cursor");
+    const grabbables = document.querySelectorAll("[grabbable]");
+
+    // Refresh what raycaster can intersect with everytime a model gets
+    // loaded
+    grabbables.forEach(function(model) {
+        model.addEventListener("model-loaded", function() {
+            cursor.components.raycaster.refreshObjects();
+        });
+    });
+    // When the raycaster intersects log the details in the console
+    cursor.addEventListener("raycaster-intersection", function(e) {
+        console.log(e.detail);
+    });
+});
+    </script>
+</html>
